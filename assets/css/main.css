@@ -930,7 +930,8 @@ input, select, textarea {
 
 	.table-wrapper {
 		-webkit-overflow-scrolling: touch;
-		overflow-x: auto;
+		overflow-x: hidden;
+		overflow-y: hidden;
 	}
 
 	table {
