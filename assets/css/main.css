@@ -271,6 +271,7 @@ input, select, textarea {
 		font-family: "Courier New", monospace;
 		font-size: 0.9rem;
 		margin: 0 0 2rem 0;
+		display: none;
 	}
 
 		pre code {
