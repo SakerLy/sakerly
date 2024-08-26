@@ -92,8 +92,11 @@ input, select, textarea {
 		box-sizing: inherit;
 	}
 
-	body {
+	body::-webkit-scrollbar {
 		background: #1b1f22;
+		overflow: hidden;
+		-ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
 	}
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
@@ -277,7 +280,7 @@ input, select, textarea {
 			display: block;
 			line-height: 1.75;
 			padding: 1rem 1.5rem;
-			overflow-x: hidden;
+			overflow-x: auto;
 		}
 
 	hr {
@@ -930,8 +933,7 @@ input, select, textarea {
 
 	.table-wrapper {
 		-webkit-overflow-scrolling: touch;
-		overflow-x: hidden;
-		overflow-y: hidden;
+		overflow-x: auto;
 	}
 
 	table {
