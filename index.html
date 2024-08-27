@@ -28,7 +28,7 @@
     </div> 
     <div class="content"> 
      <div class="inner"> 
-      <h1>SakerLyR18&nbsp; - www.sakerly.top</h1>
+      <h2>SakerLyR18&nbsp; - www.sakerly.top</h2>
       <p style="color: rgb(255, 32, 2);font-weight: bold;">Click Ctr + D to save page thank &hearts;</p>
     </div> 
     </div>
@@ -42,7 +42,16 @@
    </header> 
    <!-- Footer --> 
    <footer id="footer"> 
-    <p class="copyright">Your IP：<script src="https://pv.sohu.com/cityjson?ie=utf-8"></script><script type="text/javascript">document.write(returnCitySN["cip"])</script></p> 
+    <p class="copyright">Your IP：<script type="text/javascript">
+    fetch('https://api.ipify.org?format=json')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.ip);
+    })
+    .catch(error => {
+        console.log('Error:', error);
+    });
+    </script><script type="text/javascript">document.write(returnCitySN["cip"])</script></p> 
     <p class="copyright">www.sakerly.top</p>
     <p class="copyright"><script>
 		var mydate = new Date();
