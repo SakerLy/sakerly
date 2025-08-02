@@ -247,7 +247,7 @@ class SakerlyApp {
         }, observerOptions);
 
         // Observe elements for scroll animations
-        document.querySelectorAll('.gallery-item, .stat-item, .section-title').forEach(el => {
+        document.querySelectorAll('.section-title').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
