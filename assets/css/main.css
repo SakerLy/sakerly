@@ -1,4 +1,16 @@
-/* ===== ROOT VARIABLES WITH MOBILE VIEWPORT ===== */
+.hero-icon {
+    margin-bottom: var(--spacing-lg);
+    margin-top: var(--spacing-sm);
+  }
+  
+  .icon-wrapper i {
+    font-size: 3.5rem;
+  }
+  
+  .icon-glow {
+    width: 90px;
+    height: 90px;
+  }/* ===== ROOT VARIABLES WITH MOBILE VIEWPORT ===== */
 :root {
   /* Mobile viewport height fix */
   --vh: 1vh;
@@ -435,11 +447,17 @@ p {
   font-weight: var(--font-weight-bold);
   color: var(--text-primary);
   text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.nav-logo:hover {
+  transform: scale(1.05);
 }
 
 .nav-logo i {
   color: var(--primary-color);
   font-size: 1.5rem;
+  filter: drop-shadow(0 0 8px rgba(255, 107, 157, 0.3));
 }
 
 .nav-links {
@@ -523,6 +541,7 @@ p {
 
 .hero-icon {
   margin-bottom: var(--spacing-2xl);
+  margin-top: var(--spacing-lg); /* Extra space from top */
 }
 
 .icon-wrapper {
@@ -985,20 +1004,23 @@ p {
   
   .nav-container {
     padding: var(--spacing-sm) var(--spacing-md);
+    height: 100%;
   }
   
   .nav-logo {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
+    gap: var(--spacing-sm);
   }
   
   .nav-logo i {
-    font-size: 1.3rem;
+    font-size: 1.6rem;
   }
   
   .hero-section {
     min-height: calc(100vh - 70px);
     min-height: calc(var(--vh, 1vh) * 100 - 70px);
     padding: var(--spacing-xl) var(--spacing-md);
+    padding-top: calc(var(--spacing-xl) + 35px);
   }
   
   .hero-content {
@@ -1140,20 +1162,23 @@ p {
   
   .nav-container {
     padding: var(--spacing-xs) var(--spacing-sm);
+    height: 100%;
   }
   
   .nav-logo {
-    font-size: 1rem;
+    font-size: 1.1rem;
+    gap: var(--spacing-xs);
   }
   
   .nav-logo i {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
   
   .hero-section {
     min-height: calc(100vh - 60px);
     min-height: calc(var(--vh, 1vh) * 100 - 60px);
     padding: var(--spacing-lg) var(--spacing-sm);
+    padding-top: calc(var(--spacing-lg) + 30px);
   }
   
   .title-line {
@@ -1188,12 +1213,17 @@ p {
   }
   
   .icon-wrapper i {
-    font-size: 4rem;
+    font-size: 4.5rem;
   }
   
   .icon-glow {
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
+  }
+  
+  .hero-icon {
+    margin-bottom: var(--spacing-xl);
+    margin-top: var(--spacing-md);
   }
   
   .section-container {
@@ -1306,8 +1336,22 @@ p {
 
 /* ===== EXTRA SMALL DEVICES ===== */
 @media (max-width: 360px) {
+  .nav-container {
+    padding: 6px var(--spacing-xs);
+  }
+  
+  .nav-logo {
+    font-size: 1rem;
+    gap: 6px;
+  }
+  
+  .nav-logo i {
+    font-size: 1.3rem;
+  }
+  
   .hero-section {
     padding: var(--spacing-md) var(--spacing-xs);
+    padding-top: calc(var(--spacing-md) + 25px);
   }
   
   .title-line {
