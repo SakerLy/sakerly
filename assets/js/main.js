@@ -130,9 +130,10 @@ class SakerlyApp {
                 e.preventDefault();
                 const target = document.querySelector(anchor.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    const offsetTop = target.offsetTop - 80; // Account for fixed nav
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
                     });
                 }
             });
@@ -143,7 +144,9 @@ class SakerlyApp {
         if (nav) {
             window.addEventListener('scroll', () => {
                 const theme = document.documentElement.getAttribute('data-theme');
-                if (window.scrollY > 100) {
+                const scrolled = window.scrollY > 100;
+                
+                if (scrolled) {
                     if (theme === 'dark') {
                         nav.style.background = 'rgba(26, 26, 46, 0.95)';
                         nav.style.backdropFilter = 'blur(20px)';
@@ -251,14 +254,8 @@ class SakerlyApp {
             observer.observe(el);
         });
 
-        // Parallax effect for hero section
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const parallax = document.querySelector('.hero-section');
-            if (parallax) {
-                parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
-            }
-        });
+        // Removed parallax effect to prevent overlapping issues
+        // The hero section now stays in place for better layout stability
     }
 
     // Mobile Menu
