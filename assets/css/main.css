@@ -313,7 +313,7 @@ p {
 /* ===== CONTROLS ===== */
 .audio-controls {
   position: fixed;
-  top: var(--spacing-lg);
+  top: 0.4rem;
   right: var(--spacing-lg);
   z-index: var(--z-fixed);
   display: flex;
@@ -336,7 +336,7 @@ p {
 
 .theme-toggle {
   position: fixed;
-  top: var(--spacing-lg);
+  top: 0.4rem;
   right: calc(var(--spacing-lg) + 180px);
   z-index: var(--z-fixed);
   background: var(--glass-bg);
