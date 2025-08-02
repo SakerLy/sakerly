@@ -263,20 +263,36 @@ class SakerlyApp {
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
         const navLinks = document.querySelector('.nav-links');
         
-        if (!mobileMenuBtn || !navLinks) return;
+        if (!mobileMenuBtn) return; // No mobile menu needed with single nav link
 
         mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+            navLinks?.classList.toggle('active');
             mobileMenuBtn.classList.toggle('active');
         });
 
         // Close menu when clicking outside
         document.addEventListener('click', (e) => {
-            if (!mobileMenuBtn.contains(e.target) && !navLinks.contains(e.target)) {
+            if (navLinks && mobileMenuBtn && 
+                !mobileMenuBtn.contains(e.target) && 
+                !navLinks.contains(e.target)) {
                 navLinks.classList.remove('active');
                 mobileMenuBtn.classList.remove('active');
             }
         });
+
+        // Handle orientation change
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => {
+                this.onResize();
+                // Fix viewport height on mobile after orientation change
+                const vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+            }, 100);
+        });
+        
+        // Set initial viewport height
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
     }
 
     // Update Copyright Year
