@@ -995,22 +995,13 @@ p {
   
   .hero-description {
     font-size: 1rem;
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
     padding: 0 var(--spacing-sm);
     line-height: 1.7;
   }
   
   .save-reminder {
-    flex-direction: column;
-    text-align: center;
-    padding: var(--spacing-md);
-    margin-bottom: var(--spacing-xl);
-    font-size: 0.8rem;
-    gap: var(--spacing-xs);
-  }
-  
-  .save-reminder kbd {
-    margin: 0 var(--spacing-xs);
+    display: none; /* Hide on mobile - Ctrl+D doesn't work */
   }
   
   .hero-actions {
@@ -1149,19 +1140,12 @@ p {
   
   .hero-description {
     font-size: 0.95rem;
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
     line-height: 1.6;
   }
   
   .save-reminder {
-    padding: var(--spacing-sm);
-    margin-bottom: var(--spacing-md);
-    font-size: 0.75rem;
-  }
-  
-  .save-reminder kbd {
-    font-size: 0.7rem;
-    padding: 1px 4px;
+    display: none; /* Keep hidden on small mobile */
   }
   
   .hero-actions {
@@ -1290,6 +1274,7 @@ p {
   
   .hero-description {
     font-size: 0.9rem;
+    margin-bottom: var(--spacing-lg);
   }
   
   .btn {
@@ -1299,8 +1284,7 @@ p {
   }
   
   .save-reminder {
-    padding: var(--spacing-xs);
-    font-size: 0.7rem;
+    display: none; /* Keep hidden on very small screens */
   }
   
   .hero-actions {
