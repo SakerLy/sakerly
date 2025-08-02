@@ -1,19 +1,19 @@
 /* ===== CSS CUSTOM PROPERTIES ===== */
 :root {
-  /* Colors - Light Theme */
+  /* Colors - Dark Theme (Default) */
   --primary-color: #ff6b9d;
   --secondary-color: #a78bfa;
   --accent-color: #fbbf24;
-  --background-primary: #0f0f23;
-  --background-secondary: #1a1a2e;
-  --background-tertiary: #16213e;
-  --text-primary: #ffffff;
-  --text-secondary: #cbd5e0;
-  --text-muted: #94a3b8;
-  --glass-bg: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.2);
+  --background-primary: #0a0a15;
+  --background-secondary: #151525;
+  --background-tertiary: #1f1f35;
+  --text-primary: #f8fafc;
+  --text-secondary: #e2e8f0;
+  --text-muted: #cbd5e0;
+  --glass-bg: rgba(255, 255, 255, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.25);
   --shadow-light: rgba(255, 255, 255, 0.1);
-  --shadow-dark: rgba(0, 0, 0, 0.3);
+  --shadow-dark: rgba(0, 0, 0, 0.5);
   
   /* Gradients */
   --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
@@ -63,13 +63,13 @@
   --background-primary: #ffffff;
   --background-secondary: #f8fafc;
   --background-tertiary: #f1f5f9;
-  --text-primary: #1e293b;
-  --text-secondary: #475569;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
   --text-muted: #64748b;
-  --glass-bg: rgba(0, 0, 0, 0.05);
+  --glass-bg: rgba(255, 255, 255, 0.8);
   --glass-border: rgba(0, 0, 0, 0.1);
   --shadow-light: rgba(255, 255, 255, 0.9);
-  --shadow-dark: rgba(0, 0, 0, 0.1);
+  --shadow-dark: rgba(0, 0, 0, 0.15);
 }
 
 /* ===== RESET & BASE STYLES ===== */
@@ -92,6 +92,43 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
   transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* ===== TEXT COLOR FIXES ===== */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+}
+
+p {
+  color: var(--text-secondary);
+}
+
+.hero-description {
+  color: var(--text-secondary) !important;
+}
+
+.section-content {
+  color: var(--text-secondary) !important;
+}
+
+.save-reminder {
+  color: var(--text-secondary) !important;
+}
+
+.loading-text {
+  color: var(--text-secondary) !important;
+}
+
+.footer-copyright {
+  color: var(--text-muted) !important;
+}
+
+.stat-label {
+  color: var(--text-secondary) !important;
+}
+
+.gallery-placeholder {
+  color: var(--text-secondary) !important;
 }
 
 /* ===== CANVAS BACKGROUND ===== */
@@ -210,6 +247,7 @@ body {
 .audio-btn:hover, .theme-btn:hover {
   background: var(--glass-bg);
   transform: scale(1.1);
+  color: var(--primary-color);
 }
 
 .volume-slider {
@@ -228,12 +266,13 @@ body {
   background: var(--primary-color);
   border-radius: 50%;
   cursor: pointer;
-  border: 2px solid var(--text-primary);
+  border: 2px solid var(--background-primary);
   transition: all var(--transition-fast);
 }
 
 .volume-slider::-webkit-slider-thumb:hover {
   transform: scale(1.2);
+  box-shadow: 0 0 10px var(--primary-color);
 }
 
 .theme-toggle {
@@ -556,7 +595,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: var(--spacing-sm);
-  color: var(--text-muted);
+  color: var(--text-secondary);
   font-size: 0.875rem;
   animation: bounce 2s infinite;
 }
@@ -564,7 +603,7 @@ body {
 .scroll-mouse {
   width: 24px;
   height: 40px;
-  border: 2px solid var(--text-muted);
+  border: 2px solid var(--text-secondary);
   border-radius: 12px;
   position: relative;
 }
@@ -572,7 +611,7 @@ body {
 .scroll-wheel {
   width: 4px;
   height: 8px;
-  background: var(--text-muted);
+  background: var(--text-secondary);
   border-radius: 2px;
   position: absolute;
   top: 8px;
