@@ -958,6 +958,19 @@ p {
 
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
+  body {
+    padding-top: 70px;
+  }
+  
+  .main-nav {
+    height: 70px;
+  }
+  
+  .hero-section {
+    min-height: calc(100vh - 70px);
+    padding: var(--spacing-2xl) var(--spacing-md);
+  }
+  
   .nav-links {
     display: none;
   }
@@ -1003,6 +1016,18 @@ p {
 }
 
 @media (max-width: 480px) {
+  body {
+    padding-top: 60px;
+  }
+  
+  .main-nav {
+    height: 60px;
+  }
+  
+  .hero-section {
+    min-height: calc(100vh - 60px);
+  }
+  
   .section-container {
     padding: 0 var(--spacing-md);
   }
