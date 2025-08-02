@@ -43,7 +43,23 @@ class SakerlyApp {
             setTimeout(() => {
                 document.body.style.transition = '';
             }, 300);
+            
+            // Update navigation immediately
+            this.updateNavTheme(newTheme);
         });
+    }
+
+    updateNavTheme(theme) {
+        const nav = document.querySelector('.main-nav');
+        if (nav) {
+            if (theme === 'dark') {
+                nav.style.background = 'rgba(255, 255, 255, 0.25)';
+                nav.style.borderBottom = '1px solid rgba(255, 255, 255, 0.2)';
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.9)';
+                nav.style.borderBottom = '1px solid rgba(0, 0, 0, 0.1)';
+            }
+        }
     }
 
     updateThemeIcon(theme) {
@@ -129,15 +145,24 @@ class SakerlyApp {
                 const theme = document.documentElement.getAttribute('data-theme');
                 if (window.scrollY > 100) {
                     if (theme === 'dark') {
-                        nav.style.background = 'rgba(10, 10, 21, 0.95)';
+                        nav.style.background = 'rgba(26, 26, 46, 0.95)';
                         nav.style.backdropFilter = 'blur(20px)';
+                        nav.style.borderBottom = '1px solid rgba(255, 255, 255, 0.2)';
                     } else {
                         nav.style.background = 'rgba(255, 255, 255, 0.95)';
                         nav.style.backdropFilter = 'blur(20px)';
+                        nav.style.borderBottom = '1px solid rgba(0, 0, 0, 0.1)';
                     }
                 } else {
-                    nav.style.background = 'rgba(255, 255, 255, 0.15)';
-                    nav.style.backdropFilter = 'blur(20px)';
+                    if (theme === 'dark') {
+                        nav.style.background = 'rgba(255, 255, 255, 0.25)';
+                        nav.style.backdropFilter = 'blur(20px)';
+                        nav.style.borderBottom = '1px solid rgba(255, 255, 255, 0.2)';
+                    } else {
+                        nav.style.background = 'rgba(255, 255, 255, 0.9)';
+                        nav.style.backdropFilter = 'blur(20px)';
+                        nav.style.borderBottom = '1px solid rgba(0, 0, 0, 0.1)';
+                    }
                 }
             });
         }
@@ -401,7 +426,13 @@ class SakerlyApp {
     renderScene() {
         if (!this.gl || !this.pointFlower) return;
 
-        this.gl.clearColor(0.005, 0, 0.05, 1.0);
+        // Dynamic background based on theme
+        const theme = document.documentElement.getAttribute('data-theme');
+        if (theme === 'light') {
+            this.gl.clearColor(0.98, 0.98, 1.0, 1.0); // Light background
+        } else {
+            this.gl.clearColor(0.1, 0.1, 0.18, 1.0); // Dark background
+        }
         this.gl.clear(this.gl.COLOR_BUFFER_BIT);
 
         // Update particles
