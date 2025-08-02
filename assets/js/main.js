@@ -25,7 +25,7 @@ class SakerlyApp {
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = document.getElementById('themeIcon');
         
-        // Load saved theme or default to dark
+        // Default to dark theme with better contrast
         const savedTheme = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', savedTheme);
         this.updateThemeIcon(savedTheme);
@@ -37,6 +37,12 @@ class SakerlyApp {
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             this.updateThemeIcon(newTheme);
+            
+            // Add transition effect
+            document.body.style.transition = 'all 0.3s ease';
+            setTimeout(() => {
+                document.body.style.transition = '';
+            }, 300);
         });
     }
 
@@ -116,14 +122,22 @@ class SakerlyApp {
             });
         });
 
-        // Navigation background on scroll
+        // Navigation background on scroll with theme awareness
         const nav = document.querySelector('.main-nav');
         if (nav) {
             window.addEventListener('scroll', () => {
+                const theme = document.documentElement.getAttribute('data-theme');
                 if (window.scrollY > 100) {
-                    nav.style.background = 'rgba(15, 15, 35, 0.9)';
+                    if (theme === 'dark') {
+                        nav.style.background = 'rgba(10, 10, 21, 0.95)';
+                        nav.style.backdropFilter = 'blur(20px)';
+                    } else {
+                        nav.style.background = 'rgba(255, 255, 255, 0.95)';
+                        nav.style.backdropFilter = 'blur(20px)';
+                    }
                 } else {
-                    nav.style.background = 'rgba(255, 255, 255, 0.1)';
+                    nav.style.background = 'rgba(255, 255, 255, 0.15)';
+                    nav.style.backdropFilter = 'blur(20px)';
                 }
             });
         }
