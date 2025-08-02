@@ -51,6 +51,9 @@ class SakerlyApp {
 
     updateNavTheme(theme) {
         const nav = document.querySelector('.main-nav');
+        const audioControls = document.querySelector('.audio-controls');
+        const themeToggle = document.querySelector('.theme-toggle');
+        
         if (nav) {
             if (theme === 'dark') {
                 nav.style.background = 'rgba(255, 255, 255, 0.25)';
@@ -58,6 +61,27 @@ class SakerlyApp {
             } else {
                 nav.style.background = 'rgba(255, 255, 255, 0.9)';
                 nav.style.borderBottom = '1px solid rgba(0, 0, 0, 0.1)';
+            }
+        }
+        
+        // Update controls appearance
+        if (audioControls) {
+            if (theme === 'dark') {
+                audioControls.style.background = 'rgba(255, 255, 255, 0.15)';
+                audioControls.style.border = '1px solid rgba(255, 255, 255, 0.25)';
+            } else {
+                audioControls.style.background = 'rgba(255, 255, 255, 0.9)';
+                audioControls.style.border = '1px solid rgba(0, 0, 0, 0.1)';
+            }
+        }
+        
+        if (themeToggle) {
+            if (theme === 'dark') {
+                themeToggle.style.background = 'rgba(255, 255, 255, 0.15)';
+                themeToggle.style.border = '1px solid rgba(255, 255, 255, 0.25)';
+            } else {
+                themeToggle.style.background = 'rgba(255, 255, 255, 0.9)';
+                themeToggle.style.border = '1px solid rgba(0, 0, 0, 0.1)';
             }
         }
     }
@@ -141,6 +165,9 @@ class SakerlyApp {
 
         // Navigation background on scroll with theme awareness
         const nav = document.querySelector('.main-nav');
+        const audioControls = document.querySelector('.audio-controls');
+        const themeToggle = document.querySelector('.theme-toggle');
+        
         if (nav) {
             window.addEventListener('scroll', () => {
                 const theme = document.documentElement.getAttribute('data-theme');
@@ -151,20 +178,48 @@ class SakerlyApp {
                         nav.style.background = 'rgba(26, 26, 46, 0.95)';
                         nav.style.backdropFilter = 'blur(20px)';
                         nav.style.borderBottom = '1px solid rgba(255, 255, 255, 0.2)';
+                        
+                        if (audioControls) {
+                            audioControls.style.background = 'rgba(26, 26, 46, 0.9)';
+                        }
+                        if (themeToggle) {
+                            themeToggle.style.background = 'rgba(26, 26, 46, 0.9)';
+                        }
                     } else {
                         nav.style.background = 'rgba(255, 255, 255, 0.95)';
                         nav.style.backdropFilter = 'blur(20px)';
                         nav.style.borderBottom = '1px solid rgba(0, 0, 0, 0.1)';
+                        
+                        if (audioControls) {
+                            audioControls.style.background = 'rgba(255, 255, 255, 0.95)';
+                        }
+                        if (themeToggle) {
+                            themeToggle.style.background = 'rgba(255, 255, 255, 0.95)';
+                        }
                     }
                 } else {
                     if (theme === 'dark') {
                         nav.style.background = 'rgba(255, 255, 255, 0.25)';
                         nav.style.backdropFilter = 'blur(20px)';
                         nav.style.borderBottom = '1px solid rgba(255, 255, 255, 0.2)';
+                        
+                        if (audioControls) {
+                            audioControls.style.background = 'rgba(255, 255, 255, 0.15)';
+                        }
+                        if (themeToggle) {
+                            themeToggle.style.background = 'rgba(255, 255, 255, 0.15)';
+                        }
                     } else {
                         nav.style.background = 'rgba(255, 255, 255, 0.9)';
                         nav.style.backdropFilter = 'blur(20px)';
                         nav.style.borderBottom = '1px solid rgba(0, 0, 0, 0.1)';
+                        
+                        if (audioControls) {
+                            audioControls.style.background = 'rgba(255, 255, 255, 0.9)';
+                        }
+                        if (themeToggle) {
+                            themeToggle.style.background = 'rgba(255, 255, 255, 0.9)';
+                        }
                     }
                 }
             });
