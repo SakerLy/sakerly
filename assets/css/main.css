@@ -336,7 +336,7 @@ p {
 
 .theme-toggle {
   position: fixed;
-  top: 0.4rem;
+  top: 0.6rem;
   right: calc(var(--spacing-lg) + 180px);
   z-index: var(--z-fixed);
   background: var(--glass-bg);
