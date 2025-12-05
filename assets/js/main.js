@@ -51,20 +51,29 @@ class SakerlyApp {
         const themeIcon = document.getElementById('themeIcon');
         const body = document.body;
 
+        if (!themeToggle || !themeIcon) {
+            console.warn('Theme toggle elements not found');
+            return;
+        }
+
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'light') {
             body.classList.add('light-theme');
-            themeIcon.classList.replace('fa-moon', 'fa-sun');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
         }
 
-        themeToggle?.addEventListener('click', () => {
+        themeToggle.addEventListener('click', () => {
             body.classList.toggle('light-theme');
             const isLight = body.classList.contains('light-theme');
             
-            themeIcon.classList.replace(
-                isLight ? 'fa-moon' : 'fa-sun',
-                isLight ? 'fa-sun' : 'fa-moon'
-            );
+            if (isLight) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
             
             localStorage.setItem('theme', isLight ? 'light' : 'dark');
         });
@@ -76,7 +85,10 @@ class SakerlyApp {
         const audioToggle = document.getElementById('audioToggle');
         const audioIcon = document.getElementById('audioIcon');
 
-        if (!audio || !audioToggle) return;
+        if (!audio || !audioToggle || !audioIcon) {
+            console.warn('Audio elements not found');
+            return;
+        }
 
         audio.volume = 0.3;
         let isPlaying = false;
@@ -84,10 +96,12 @@ class SakerlyApp {
         audioToggle.addEventListener('click', () => {
             if (isPlaying) {
                 audio.pause();
-                audioIcon.classList.replace('fa-volume-up', 'fa-volume-mute');
+                audioIcon.classList.remove('fa-volume-up');
+                audioIcon.classList.add('fa-volume-mute');
             } else {
                 audio.play().catch(e => console.log('Audio play prevented:', e));
-                audioIcon.classList.replace('fa-volume-mute', 'fa-volume-up');
+                audioIcon.classList.remove('fa-volume-mute');
+                audioIcon.classList.add('fa-volume-up');
             }
             isPlaying = !isPlaying;
         });
