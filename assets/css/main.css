@@ -457,60 +457,6 @@ kbd {
     font-size: 0.95rem;
 }
 
-/* ==================== STATS SECTION ==================== */
-.stats {
-    position: relative;
-    z-index: 1;
-    padding: 4rem 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-}
-
-.stat-card {
-    text-align: center;
-    padding: 2rem;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.3s ease;
-}
-
-.light-theme .stat-card {
-    background: rgba(0, 0, 0, 0.02);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.stat-card:hover {
-    background: rgba(255, 255, 255, 0.05);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(255, 107, 157, 0.2);
-}
-
-.light-theme .stat-card:hover {
-    background: rgba(0, 0, 0, 0.05);
-}
-
-.stat-value {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 2.5rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 0.5rem;
-}
-
-.stat-label {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-}
-
 /* ==================== FOOTER ==================== */
 footer {
     position: relative;
@@ -596,30 +542,6 @@ footer {
 
 .copyright a:hover {
     color: var(--accent-secondary);
-}
-
-/* ==================== SCROLL INDICATOR ==================== */
-.scroll-indicator {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-    0%, 100% { 
-        transform: translateX(-50%) translateY(0); 
-    }
-    50% { 
-        transform: translateX(-50%) translateY(-10px); 
-    }
-}
-
-.scroll-indicator i {
-    font-size: 2rem;
-    color: var(--accent-primary);
-    opacity: 0.6;
 }
 
 /* ==================== RESPONSIVE ==================== */
