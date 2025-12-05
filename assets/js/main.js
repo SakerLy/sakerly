@@ -143,12 +143,14 @@ class SakerlyApp {
         });
 
         // Click to scroll
-        scrollIndicator?.addEventListener('click', () => {
-            window.scrollTo({
-                top: window.innerHeight,
-                behavior: 'smooth'
+        if (scrollIndicator) {
+            scrollIndicator.addEventListener('click', () => {
+                window.scrollTo({
+                    top: window.innerHeight,
+                    behavior: 'smooth'
+                });
             });
-        });
+        }
 
         // Intersection Observer for animations
         const observer = new IntersectionObserver((entries) => {
@@ -172,6 +174,8 @@ class SakerlyApp {
     // ==================== ANIMATED STATS ====================
     setupStats() {
         const statValues = document.querySelectorAll('.stat-value');
+        if (statValues.length === 0) return;
+
         let hasAnimated = false;
 
         const animateValue = (element, end, duration = 2000) => {
@@ -243,13 +247,15 @@ class SakerlyApp {
             // Ctrl/Cmd + K for theme toggle
             if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
                 e.preventDefault();
-                document.getElementById('themeToggle')?.click();
+                const themeToggle = document.getElementById('themeToggle');
+                if (themeToggle) themeToggle.click();
             }
             
             // Ctrl/Cmd + M for audio toggle
             if ((e.ctrlKey || e.metaKey) && e.key === 'm') {
                 e.preventDefault();
-                document.getElementById('audioToggle')?.click();
+                const audioToggle = document.getElementById('audioToggle');
+                if (audioToggle) audioToggle.click();
             }
 
             // Tab key for keyboard navigation visibility
@@ -268,13 +274,15 @@ class SakerlyApp {
         let clickCount = 0;
         const logo = document.querySelector('.logo');
 
-        logo?.addEventListener('click', () => {
-            clickCount++;
-            if (clickCount === 5) {
-                this.createConfetti();
-                clickCount = 0;
-            }
-        });
+        if (logo) {
+            logo.addEventListener('click', () => {
+                clickCount++;
+                if (clickCount === 5) {
+                    this.createConfetti();
+                    clickCount = 0;
+                }
+            });
+        }
     }
 
     createConfetti() {
@@ -391,15 +399,6 @@ class Particle {
     }
 }
 
-// ==================== UTILITIES ====================
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func(...args), wait);
-    };
-}
-
 // ==================== INITIALIZE APP ====================
 document.addEventListener('DOMContentLoaded', () => {
     window.sakerlyApp = new SakerlyApp();
@@ -407,5 +406,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ==================== ERROR HANDLING ====================
-window.addEventListener('error', (e) => console.error('App Error:', e.error));
-window.addEventListener('unhandledrejection', (e) => console.error('Unhandled Rejection:', e.reason));
+window.addEventListener('error', (e) => {
+    console.error('App Error:', e.error);
+});
+
+window.addEventListener('unhandledrejection', (e) => {
+    console.error('Unhandled Rejection:', e.reason);
+});
