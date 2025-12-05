@@ -10,8 +10,6 @@ class SakerlyApp {
         this.setupTheme();
         this.setupAudio();
         this.setupNavigation();
-        this.setupScrollEffects();
-        this.setupStats();
         this.fetchUserIP();
         this.updateYear();
         this.setupKeyboardShortcuts();
@@ -129,86 +127,6 @@ class SakerlyApp {
                 }
             });
         });
-    }
-
-    // ==================== SCROLL EFFECTS ====================
-    setupScrollEffects() {
-        const scrollIndicator = document.querySelector('.scroll-indicator');
-
-        // Hide scroll indicator on scroll
-        window.addEventListener('scroll', () => {
-            if (scrollIndicator) {
-                scrollIndicator.style.opacity = window.scrollY > 200 ? '0' : '1';
-            }
-        });
-
-        // Click to scroll
-        if (scrollIndicator) {
-            scrollIndicator.addEventListener('click', () => {
-                window.scrollTo({
-                    top: window.innerHeight,
-                    behavior: 'smooth'
-                });
-            });
-        }
-
-        // Intersection Observer for animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
-
-        // Observe stat cards
-        document.querySelectorAll('.stat-card').forEach((card, index) => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = `all 0.6s ease ${index * 0.1}s`;
-            observer.observe(card);
-        });
-    }
-
-    // ==================== ANIMATED STATS ====================
-    setupStats() {
-        const statValues = document.querySelectorAll('.stat-value');
-        if (statValues.length === 0) return;
-
-        let hasAnimated = false;
-
-        const animateValue = (element, end, duration = 2000) => {
-            const start = 0;
-            const increment = end / (duration / 16);
-            let current = start;
-            const suffix = element.dataset.count === '99' ? '%' : '+';
-
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= end) {
-                    element.textContent = end + suffix;
-                    clearInterval(timer);
-                } else {
-                    element.textContent = Math.floor(current) + suffix;
-                }
-            }, 16);
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !hasAnimated) {
-                    hasAnimated = true;
-                    statValues.forEach(stat => {
-                        const target = parseInt(stat.dataset.count);
-                        animateValue(stat, target);
-                    });
-                }
-            });
-        }, { threshold: 0.5 });
-
-        const statsSection = document.querySelector('.stats');
-        if (statsSection) observer.observe(statsSection);
     }
 
     // ==================== FETCH USER IP ====================
