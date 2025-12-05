@@ -749,3 +749,402 @@ window.addEventListener('error', (e) => {
 window.addEventListener('unhandledrejection', (e) => {
     console.error('Unhandled Promise Rejection:', e.reason);
 });
+
+// ==================== INITIALIZATION ====================
+document.addEventListener('DOMContentLoaded', function() {
+    initLoader();
+    initParticles();
+    initThemeToggle();
+    initAudioToggle();
+    initScrollEffects();
+    initStats();
+    fetchUserIP();
+    updateYear();
+});
+
+// ==================== LOADING SCREEN ====================
+function initLoader() {
+    const loading = document.getElementById('loading');
+    
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            loading.classList.add('hidden');
+            document.body.classList.remove('no-scroll');
+        }, 1500);
+    });
+}
+
+// ==================== PARTICLE CANVAS ====================
+function initParticles() {
+    const canvas = document.getElementById('particleCanvas');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let animationId;
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    class Particle {
+        constructor() {
+            this.reset();
+        }
+
+        reset() {
+            this.x = Math.random() * canvas.width;
+            this.y = canvas.height + 10;
+            this.speed = Math.random() * 2 + 1;
+            this.radius = Math.random() * 2 + 1;
+            this.opacity = Math.random() * 0.5 + 0.2;
+            this.drift = Math.random() * 0.5 - 0.25;
+        }
+
+        update() {
+            this.y -= this.speed;
+            this.x += this.drift;
+            
+            if (this.y < -10) {
+                this.reset();
+            }
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+            ctx.fill();
+        }
+    }
+
+    function createParticles() {
+        const particleCount = Math.floor((canvas.width * canvas.height) / 15000);
+        particles = [];
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        particles.forEach(particle => {
+            particle.update();
+            particle.draw();
+        });
+
+        animationId = requestAnimationFrame(animate);
+    }
+
+    resizeCanvas();
+    createParticles();
+    animate();
+
+    window.addEventListener('resize', () => {
+        resizeCanvas();
+        createParticles();
+    });
+}
+
+// ==================== THEME TOGGLE ====================
+function initThemeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const body = document.body;
+
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        body.classList.add('light-theme');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+    }
+
+    themeToggle.addEventListener('click', () => {
+        body.classList.toggle('light-theme');
+        
+        if (body.classList.contains('light-theme')) {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+            localStorage.setItem('theme', 'light');
+        } else {
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+}
+
+// ==================== AUDIO TOGGLE ====================
+function initAudioToggle() {
+    const audioToggle = document.getElementById('audioToggle');
+    const audioIcon = document.getElementById('audioIcon');
+    const bgAudio = document.getElementById('bgAudio');
+
+    let isPlaying = false;
+
+    audioToggle.addEventListener('click', () => {
+        if (isPlaying) {
+            bgAudio.pause();
+            audioIcon.classList.remove('fa-volume-up');
+            audioIcon.classList.add('fa-volume-mute');
+            isPlaying = false;
+        } else {
+            bgAudio.play().catch(e => console.log('Audio play failed:', e));
+            audioIcon.classList.remove('fa-volume-mute');
+            audioIcon.classList.add('fa-volume-up');
+            isPlaying = true;
+        }
+    });
+
+    // Set initial volume
+    bgAudio.volume = 0.3;
+}
+
+// ==================== SCROLL EFFECTS ====================
+function initScrollEffects() {
+    const nav = document.querySelector('nav');
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+
+    window.addEventListener('scroll', () => {
+        // Navbar scroll effect
+        if (window.scrollY > 100) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+
+        // Hide scroll indicator
+        if (scrollIndicator) {
+            if (window.scrollY > 200) {
+                scrollIndicator.style.opacity = '0';
+            } else {
+                scrollIndicator.style.opacity = '1';
+            }
+        }
+    });
+
+    // Smooth scroll for scroll indicator
+    if (scrollIndicator) {
+        scrollIndicator.addEventListener('click', () => {
+            window.scrollTo({
+                top: window.innerHeight,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // Observe stats cards
+    document.querySelectorAll('.stat-card').forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+        observer.observe(card);
+    });
+}
+
+// ==================== ANIMATED STATS COUNTER ====================
+function initStats() {
+    const statValues = document.querySelectorAll('.stat-value');
+    let hasAnimated = false;
+
+    const animateValue = (element, start, end, duration) => {
+        const range = end - start;
+        const increment = range / (duration / 16);
+        let current = start;
+
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= end) {
+                element.textContent = end + (element.dataset.count === '99' ? '%' : '+');
+                clearInterval(timer);
+            } else {
+                element.textContent = Math.floor(current) + (element.dataset.count === '99' ? '%' : '+');
+            }
+        }, 16);
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !hasAnimated) {
+                hasAnimated = true;
+                statValues.forEach(stat => {
+                    const target = parseInt(stat.dataset.count);
+                    animateValue(stat, 0, target, 2000);
+                });
+            }
+        });
+    }, { threshold: 0.5 });
+
+    const statsSection = document.querySelector('.stats');
+    if (statsSection) {
+        observer.observe(statsSection);
+    }
+}
+
+// ==================== FETCH USER IP ====================
+async function fetchUserIP() {
+    const ipElement = document.getElementById('userIP');
+    
+    try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        ipElement.textContent = data.ip;
+        
+        // Add typing effect
+        typeWriter(ipElement, data.ip, 0);
+    } catch (error) {
+        ipElement.textContent = 'Unable to fetch';
+        console.error('Error fetching IP:', error);
+    }
+}
+
+function typeWriter(element, text, index) {
+    if (index < text.length) {
+        element.textContent = text.substring(0, index + 1);
+        setTimeout(() => typeWriter(element, text, index + 1), 100);
+    }
+}
+
+// ==================== UPDATE YEAR ====================
+function updateYear() {
+    const yearElement = document.getElementById('currentYear');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
+}
+
+// ==================== KEYBOARD SHORTCUTS ====================
+document.addEventListener('keydown', (e) => {
+    // Ctrl/Cmd + D already handled by browser for bookmarking
+    
+    // Ctrl/Cmd + K for theme toggle
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        document.getElementById('themeToggle').click();
+    }
+    
+    // Ctrl/Cmd + M for audio toggle
+    if ((e.ctrlKey || e.metaKey) && e.key === 'm') {
+        e.preventDefault();
+        document.getElementById('audioToggle').click();
+    }
+});
+
+// ==================== MOUSE TRAIL EFFECT ====================
+let mouseTrail = [];
+const maxTrailLength = 20;
+
+document.addEventListener('mousemove', (e) => {
+    mouseTrail.push({ x: e.clientX, y: e.clientY, time: Date.now() });
+    
+    if (mouseTrail.length > maxTrailLength) {
+        mouseTrail.shift();
+    }
+});
+
+// ==================== EASTER EGG ====================
+let clickCount = 0;
+const logo = document.querySelector('.logo');
+
+if (logo) {
+    logo.addEventListener('click', () => {
+        clickCount++;
+        
+        if (clickCount === 5) {
+            createConfetti();
+            clickCount = 0;
+        }
+    });
+}
+
+function createConfetti() {
+    const colors = ['#ff6b9d', '#c96dd8', '#4d9cff', '#ffd93d'];
+    const confettiCount = 50;
+    
+    for (let i = 0; i < confettiCount; i++) {
+        const confetti = document.createElement('div');
+        confetti.style.position = 'fixed';
+        confetti.style.width = '10px';
+        confetti.style.height = '10px';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = '50%';
+        confetti.style.top = '50%';
+        confetti.style.borderRadius = '50%';
+        confetti.style.pointerEvents = 'none';
+        confetti.style.zIndex = '9999';
+        confetti.style.transition = 'all 1s ease-out';
+        
+        document.body.appendChild(confetti);
+        
+        setTimeout(() => {
+            const angle = (Math.PI * 2 * i) / confettiCount;
+            const velocity = 200 + Math.random() * 200;
+            const x = Math.cos(angle) * velocity;
+            const y = Math.sin(angle) * velocity;
+            
+            confetti.style.transform = `translate(${x}px, ${y}px)`;
+            confetti.style.opacity = '0';
+        }, 10);
+        
+        setTimeout(() => {
+            confetti.remove();
+        }, 1000);
+    }
+}
+
+// ==================== PERFORMANCE OPTIMIZATION ====================
+// Debounce function for resize events
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Optimized resize handler
+const handleResize = debounce(() => {
+    // Any resize-dependent code here
+    console.log('Window resized');
+}, 250);
+
+window.addEventListener('resize', handleResize);
+
+// ==================== ACCESSIBILITY ====================
+// Focus visible for keyboard navigation
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') {
+        document.body.classList.add('keyboard-nav');
+    }
+});
+
+document.addEventListener('mousedown', () => {
+    document.body.classList.remove('keyboard-nav');
+});
+
+// ==================== CONSOLE MESSAGE ====================
+console.log('%c🌸 Welcome to SakerLy! 🌸', 'color: #ff6b9d; font-size: 24px; font-weight: bold;');
+console.log('%cDeveloped with ❤️ by SakerLy', 'color: #c96dd8; font-size: 14px;');
+console.log('%cWebsite: https://www.sakerly.top', 'color: #4d9cff; font-size: 12px;');
