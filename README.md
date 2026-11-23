@@ -13,7 +13,8 @@
 ### About me
 
 - **Full-stack Web Developer**, mainly working with **JavaScript, Java, Python, PHP, Rust**
-- Frontend with **React**, backend with **Node.js, PHP, Java**
+- Frontend with **React, Tailwind CSS, Bootstrap**, backend with **Node.js, PHP (Laravel), Java**
+- Databases: **MySQL, Redis**
 - Building **tools** with **Python** and **Rust**
 - Love building clean, maintainable web applications
 - Always learning and experimenting with new technologies
@@ -21,7 +22,8 @@
 ### Giới thiệu
 
 - Lập trình viên **Full-stack Web**, chủ yếu làm việc với **JavaScript, Java, Python, PHP, Rust**
-- Frontend với **React**, backend với **Node.js, PHP, Java**
+- Frontend với **React, Tailwind CSS, Bootstrap**, backend với **Node.js, PHP (Laravel), Java**
+- Cơ sở dữ liệu: **MySQL, Redis**
 - Viết các **tools** bằng **Python** và **Rust**
 - Thích xây dựng ứng dụng web gọn gàng, dễ bảo trì
 - Luôn học hỏi và thử nghiệm công nghệ mới
@@ -29,7 +31,7 @@
 ### Tech stack
 
 <p align="left">
-  <img src="https://skillicons.dev/icons?i=html,css,js,java,python,react,nodejs,php,rust,git,vscode&perline=11" />
+  <img src="https://skillicons.dev/icons?i=html,css,js,java,python,php,rust,react,tailwind,bootstrap,nodejs,laravel,mysql,redis,git,vscode&perline=8" />
 </p>
 
 ### GitHub stats
