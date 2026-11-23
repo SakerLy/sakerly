@@ -2,7 +2,7 @@
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f2027,50:203a43,100:2c5364&height=180&section=header&text=Hi%2C%20I'm%20SakerLy&fontSize=40&fontColor=ffffff&animation=fadeIn&fontAlignY=38" width="100%" />
 
-<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=36BCF7&center=true&vCenter=true&width=500&lines=Software+Developer;Building+things+for+the+web;Always+learning+something+new" alt="Typing SVG" /></a>
+<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=36BCF7&center=true&vCenter=true&width=500&lines=Software+Engineering+Student;Full-stack+Web+Developer;Building+things+for+the+web;Always+learning+something+new" alt="Typing SVG" /></a>
 
 <img src="https://komarev.com/ghpvc/?username=SakerLy&style=flat-square&color=36BCF7&label=Profile+views" alt="Profile views" />
 
@@ -12,6 +12,7 @@
 
 ### About me
 
+- **Software Engineering (SE)** student
 - **Full-stack Web Developer**, mainly working with **JavaScript, Java, Python, PHP, Rust**
 - Frontend with **React, Tailwind CSS, Bootstrap**, backend with **Node.js, PHP (Laravel), Java**
 - Databases: **MySQL, Redis**
@@ -21,6 +22,7 @@
 
 ### Giới thiệu
 
+- Sinh viên chuyên ngành **Kỹ thuật phần mềm (Software Engineering - SE)**
 - Lập trình viên **Full-stack Web**, chủ yếu làm việc với **JavaScript, Java, Python, PHP, Rust**
 - Frontend với **React, Tailwind CSS, Bootstrap**, backend với **Node.js, PHP (Laravel), Java**
 - Cơ sở dữ liệu: **MySQL, Redis**
