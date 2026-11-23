@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SakerLy</title>
+  <meta name="description" content="SakerLy - Full-stack Web Developer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500;600&family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f5f7fa; --surface: #ffffff; --text: #1a2230; --muted: #5b6575;
+      --accent: #1f8fd6; --border: #e2e7ee;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #0d1117; --surface: #161b22; --text: #e6edf3; --muted: #8b949e;
+              --accent: #36bcf7; --border: #262d36; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text);
+           font: 16px/1.6 Inter, system-ui, sans-serif; }
+    main { max-width: 860px; margin: 0 auto; padding: 0 16px 64px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    header { position: relative; overflow: hidden; color: #fff; text-align: center;
+             padding: 96px 16px 88px; min-height: 60vh; display: flex; flex-direction: column;
+             justify-content: center;
+             background: linear-gradient(135deg, #0f2027, #203a43, #2c5364, #1a1f4b);
+             background-size: 300% 300%; animation: bgshift 14s ease infinite; }
+    @keyframes bgshift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+    header canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    header > :not(canvas) { position: relative; }
+    header h1 { margin: 0; font-size: clamp(2.2rem, 7vw, 3.8rem); letter-spacing: -.02em;
+                background: linear-gradient(90deg, #fff, #36bcf7, #a78bfa, #fff);
+                background-size: 300% auto; -webkit-background-clip: text; background-clip: text;
+                color: transparent; animation: shine 6s linear infinite; }
+    @keyframes shine { to { background-position: 300% center; } }
+    .btn { transition: transform .2s, box-shadow .2s, background .2s; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 0 18px rgba(54,188,247,.5); }
+    .role { font-family: "Fira Code", monospace; color: #36bcf7; min-height: 1.6em;
+            font-size: clamp(1rem, 3vw, 1.25rem); margin: 8px 0 24px; }
+    .role::after { content: "|"; animation: blink 1s steps(1) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn { border: 1px solid rgba(255,255,255,.4); color: #fff; padding: 8px 18px;
+           border-radius: 999px; background: transparent; font: inherit; cursor: pointer; }
+    .btn:hover { background: rgba(255,255,255,.12); text-decoration: none; }
+
+    section { margin-top: 48px; }
+    h2 { font-size: 1.25rem; margin: 0 0 16px; padding-bottom: 8px;
+         border-bottom: 1px solid var(--border); }
+    ul.about { margin: 0; padding-left: 20px; }
+    ul.about li { margin: 6px 0; }
+    .stack img { max-width: 100%; }
+
+    .repos { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+    .repo { position: relative; background: var(--surface); border: 1px solid var(--border);
+            border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 6px;
+            transition: transform .15s ease-out, border-color .2s, box-shadow .2s; transform-style: preserve-3d; }
+    .repo::before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+            background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), rgba(54,188,247,.18), transparent 60%);
+            opacity: 0; transition: opacity .2s; }
+    .repo:hover { border-color: var(--accent); box-shadow: 0 10px 30px rgba(31,143,214,.18); }
+    .repo:hover::before { opacity: 1; }
+    h2 { position: relative; }
+    h2::after { content: ""; position: absolute; left: 0; bottom: -1px; height: 2px; width: 48px;
+                background: linear-gradient(90deg, var(--accent), #a78bfa); }
+    .stack img { transition: transform .3s; }
+    .stack img:hover { transform: scale(1.04); }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.show { opacity: 1; transform: none; }
+    .scroll-hint { position: absolute; bottom: 20px; left: 50%; width: 22px; height: 36px; margin-left: -11px;
+                   border: 2px solid rgba(255,255,255,.5); border-radius: 12px; }
+    .scroll-hint::after { content: ""; position: absolute; left: 50%; top: 6px; width: 4px; height: 8px; margin-left: -2px;
+                          background: #fff; border-radius: 2px; animation: wheel 1.6s ease-in-out infinite; }
+    @keyframes wheel { 0% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(12px); } }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+    .repo h3 { margin: 0; font-size: 1rem; }
+    .repo p { margin: 0; color: var(--muted); font-size: .9rem; flex: 1; }
+    .meta { color: var(--muted); font-size: .8rem; display: flex; gap: 12px; }
+    .muted { color: var(--muted); }
+    footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 32px 16px; }
+  </style>
+</head>
+<body>
+  <header>
+    <canvas id="fx" aria-hidden="true"></canvas>
+    <h1>Hi, I'm SakerLy</h1>
+    <div class="role" id="role"></div>
+    <div class="links">
+      <a class="btn" href="https://github.com/SakerLy" target="_blank" rel="noopener">GitHub</a>
+      <button class="btn" id="lang" type="button">Tiếng Việt</button>
+    </div>
+    <div class="scroll-hint" aria-hidden="true"></div>
+  </header>
+
+  <main>
+    <section class="reveal">
+      <h2 data-en="About me" data-vi="Giới thiệu">About me</h2>
+      <ul class="about" id="about"></ul>
+    </section>
+
+    <section class="stack reveal">
+      <h2>Tech stack</h2>
+      <img src="https://skillicons.dev/icons?i=html,css,js,java,python,react,nodejs,php,rust,git,vscode&perline=11"
+           alt="HTML, CSS, JavaScript, Java, Python, React, Node.js, PHP, Rust, Git, VS Code" />
+    </section>
+
+    <section class="reveal">
+      <h2 data-en="Projects" data-vi="Dự án">Projects</h2>
+      <div class="repos" id="repos"><p class="muted">Loading...</p></div>
+    </section>
+  </main>
+
+  <footer>&copy; <span id="year"></span> SakerLy</footer>
+
+  <script>
+    const USER = "SakerLy";
+    const text = {
+      en: {
+        roles: ["Full-stack Web Developer", "Building tools with Python & Rust", "Always learning something new"],
+        about: [
+          "<b>Full-stack Web Developer</b>, mainly working with <b>JavaScript, Java, Python, PHP, Rust</b>",
+          "Frontend with <b>React</b>, backend with <b>Node.js, PHP, Java</b>",
+          "Building <b>tools</b> with <b>Python</b> and <b>Rust</b>",
+          "Love building clean, maintainable web applications",
+          "Always learning and experimenting with new technologies"
+        ],
+        btn: "Tiếng Việt", noRepos: "No public repositories yet.", error: "Could not load repositories."
+      },
+      vi: {
+        roles: ["Lập trình viên Full-stack Web", "Viết tools bằng Python & Rust", "Luôn học điều mới"],
+        about: [
+          "Lập trình viên <b>Full-stack Web</b>, chủ yếu làm việc với <b>JavaScript, Java, Python, PHP, Rust</b>",
+          "Frontend với <b>React</b>, backend với <b>Node.js, PHP, Java</b>",
+          "Viết các <b>tools</b> bằng <b>Python</b> và <b>Rust</b>",
+          "Thích xây dựng ứng dụng web gọn gàng, dễ bảo trì",
+          "Luôn học hỏi và thử nghiệm công nghệ mới"
+        ],
+        btn: "English", noRepos: "Chưa có repository công khai.", error: "Không tải được danh sách repository."
+      }
+    };
+
+    let lang = "en";
+    try { lang = localStorage.getItem("lang") || "en"; } catch {}
+
+    function render() {
+      const t = text[lang];
+      document.documentElement.lang = lang;
+      document.getElementById("about").innerHTML = t.about.map(s => `<li>${s}</li>`).join("");
+      document.getElementById("lang").textContent = t.btn;
+      document.querySelectorAll("[data-en]").forEach(el => el.textContent = el.dataset[lang]);
+    }
+
+    document.getElementById("lang").onclick = () => {
+      lang = lang === "en" ? "vi" : "en";
+      try { localStorage.setItem("lang", lang); } catch {}
+      render();
+      renderRepos();
+    };
+
+    // Typing effect
+    const roleEl = document.getElementById("role");
+    let r = 0, c = 0, deleting = false;
+    (function type() {
+      const word = text[lang].roles[r % text[lang].roles.length];
+      c += deleting ? -1 : 1;
+      roleEl.textContent = word.slice(0, c);
+      let delay = deleting ? 40 : 80;
+      if (!deleting && c === word.length) { deleting = true; delay = 1500; }
+      else if (deleting && c === 0) { deleting = false; r++; delay = 300; }
+      setTimeout(type, delay);
+    })();
+
+    // Projects from GitHub API
+    const esc = s => String(s ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+    let repos = null;
+    function renderRepos() {
+      const box = document.getElementById("repos");
+      if (repos === null) return;
+      if (repos instanceof Error) { box.innerHTML = `<p class="muted">${text[lang].error}</p>`; return; }
+      if (!repos.length) { box.innerHTML = `<p class="muted">${text[lang].noRepos}</p>`; return; }
+      box.innerHTML = repos.map(x => `
+        <article class="repo">
+          <h3><a href="${esc(x.html_url)}" target="_blank" rel="noopener">${esc(x.name)}</a></h3>
+          <p>${esc(x.description)}</p>
+          <div class="meta">${x.language ? `<span>${esc(x.language)}</span>` : ""}<span>★ ${x.stargazers_count}</span></div>
+        </article>`).join("");
+    }
+    fetch(`https://api.github.com/users/${USER}/repos?sort=updated&per_page=100`)
+      .then(res => res.ok ? res.json() : Promise.reject(new Error(res.status)))
+      .then(list => { repos = list.filter(x => !x.fork && x.name.toLowerCase() !== USER.toLowerCase()).slice(0, 6); })
+      .catch(err => { repos = err; })
+      .finally(renderRepos);
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+    render();
+
+    const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Reveal sections on scroll
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add("show"); io.unobserve(e.target); }
+    }), { threshold: 0.15 });
+    document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+    // Card tilt + spotlight following the mouse
+    const reposBox = document.getElementById("repos");
+    reposBox.addEventListener("mousemove", e => {
+      const card = e.target.closest(".repo");
+      if (!card) return;
+      const b = card.getBoundingClientRect();
+      const x = e.clientX - b.left, y = e.clientY - b.top;
+      card.style.setProperty("--mx", x + "px");
+      card.style.setProperty("--my", y + "px");
+      if (!reduceMotion) card.style.transform =
+        `perspective(600px) rotateX(${(b.height / 2 - y) / 12}deg) rotateY(${(x - b.width / 2) / 12}deg) translateY(-4px)`;
+    });
+    reposBox.addEventListener("mouseout", e => {
+      const card = e.target.closest(".repo");
+      if (card && !card.contains(e.relatedTarget)) card.style.transform = "";
+    });
+
+    // Particle network in the header, pulled toward the mouse
+    const cv = document.getElementById("fx"), ctx = cv.getContext("2d");
+    const mouse = { x: -1e4, y: -1e4 };
+    let pts = [], W = 0, H = 0;
+    function resize() {
+      const dpr = devicePixelRatio || 1;
+      W = cv.clientWidth; H = cv.clientHeight;
+      cv.width = W * dpr; cv.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const n = Math.min(90, Math.floor(W * H / 12000));
+      pts = Array.from({ length: n }, () => ({
+        x: Math.random() * W, y: Math.random() * H,
+        vx: (Math.random() - .5) * .5, vy: (Math.random() - .5) * .5
+      }));
+    }
+    function frame() {
+      ctx.clearRect(0, 0, W, H);
+      for (const p of pts) {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > W) p.vx *= -1;
+        if (p.y < 0 || p.y > H) p.vy *= -1;
+        const dx = mouse.x - p.x, dy = mouse.y - p.y, d = Math.hypot(dx, dy);
+        if (d < 160) { p.x += dx * .012; p.y += dy * .012; }
+      }
+      for (let i = 0; i < pts.length; i++) {
+        const a = pts[i];
+        for (let j = i + 1; j < pts.length; j++) {
+          const b = pts[j], d = Math.hypot(a.x - b.x, a.y - b.y);
+          if (d < 120) {
+            ctx.strokeStyle = `rgba(54,188,247,${1 - d / 120})`;
+            ctx.lineWidth = .6;
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+          }
+        }
+        ctx.fillStyle = "rgba(255,255,255,.8)";
+        ctx.beginPath(); ctx.arc(a.x, a.y, 1.8, 0, Math.PI * 2); ctx.fill();
+      }
+      if (!reduceMotion) requestAnimationFrame(frame);
+    }
+    const header = cv.parentElement;
+    header.addEventListener("mousemove", e => {
+      const b = cv.getBoundingClientRect();
+      mouse.x = e.clientX - b.left; mouse.y = e.clientY - b.top;
+    });
+    header.addEventListener("mouseleave", () => { mouse.x = mouse.y = -1e4; });
+    addEventListener("resize", resize);
+    resize();
+    frame();
+  </script>
+</body>
+</html>

@@ -12,15 +12,24 @@
 
 ### About me
 
-- Đang làm: **các dự án cá nhân trên GitHub**
-- Đang học: **những công nghệ mới mỗi ngày**
-- Hỏi tôi về: **code, web, tools**
-- Fun fact: **code tốt nhất là code không cần viết**
+- **Full-stack Web Developer**, mainly working with **JavaScript, Java, Python, PHP, Rust**
+- Frontend with **React**, backend with **Node.js, PHP, Java**
+- Building **tools** with **Python** and **Rust**
+- Love building clean, maintainable web applications
+- Always learning and experimenting with new technologies
+
+### Giới thiệu
+
+- Lập trình viên **Full-stack Web**, chủ yếu làm việc với **JavaScript, Java, Python, PHP, Rust**
+- Frontend với **React**, backend với **Node.js, PHP, Java**
+- Viết các **tools** bằng **Python** và **Rust**
+- Thích xây dựng ứng dụng web gọn gàng, dễ bảo trì
+- Luôn học hỏi và thử nghiệm công nghệ mới
 
 ### Tech stack
 
 <p align="left">
-  <img src="https://skillicons.dev/icons?i=js,ts,python,html,css,react,nodejs,git,github,vscode,windows&perline=11" />
+  <img src="https://skillicons.dev/icons?i=html,css,js,java,python,react,nodejs,php,rust,git,vscode&perline=11" />
 </p>
 
 ### GitHub stats
